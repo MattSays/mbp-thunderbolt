@@ -10,6 +10,12 @@ if (( $EUID != 0 )); then
     echo "WARNING: Not running as root. Using sudo for installation operations"
 fi
 
+mkinitcpio -h > /dev/null
+
+if (( $? != 0 )); then
+    echo "ERROR: Initcpio not present exiting."
+    exit 1
+fi
 
 $SUDO cp -r ./initcpio/* /etc/initcpio/
 echo "Initcpio files copied to config directory successfully."
